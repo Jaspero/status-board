@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
+  MatDividerModule,
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule
@@ -48,7 +49,8 @@ import {MemberComponent} from './pages/member/member.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
