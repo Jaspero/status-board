@@ -47,6 +47,7 @@ jobs:
             - functions/package.json
             - package-lock.json
             - firebase.json
+            - functions/node_modules
             - public
             - functions/lib
             - firestore.indexes.json
