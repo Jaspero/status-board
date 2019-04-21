@@ -33,6 +33,12 @@ jobs:
       - run:
           name: Linting
           command: npm run lint
+      - run:
+          name: Building
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                npm run build
+            fi
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -41,6 +47,8 @@ jobs:
             - functions/package.json
             - package-lock.json
             - firebase.json
+            - public
+            - functions/lib
   deploy:
     docker:
       - image: flauc/firebase

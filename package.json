@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm --prefix client run build",
     "lint": "npm --prefix client run lint",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
