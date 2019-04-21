@@ -11,7 +11,9 @@ jobs:
       - run:
           name: Set Public Environment
           command: echo export const ENV_CONFIG=$PUBLIC_CONFIG > client/src/app/shared/consts/env-config.const.ts
-
+      - run:
+          name: Set Private Environment
+          command: firebase functions:config:set webhook.secret=$WEBHOOK_SECRET --project=jaspero-central --token $FIREBASE_CI_TOKEN
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}-{{ checksum "client/package-lock.json" }}-{{ checksum "functions/package-lock.json" }}
