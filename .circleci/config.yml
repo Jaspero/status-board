@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: Set Public Environment
-          command: echo export const ENV_CONFIG=$DEV_PUBLIC_CONFIG > client/src/app/shared/consts/env-config.const.ts
+          command: echo export const ENV_CONFIG=PUBLIC_CONFIG > client/src/app/shared/consts/env-config.const.ts
 
       - restore_cache:
           keys:
