@@ -37,6 +37,8 @@ jobs:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - package.json
+            - client/package.json
+            - functions/package.json
             - package-lock.json
             - firebase.json
   deploy:
