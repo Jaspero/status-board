@@ -1,9 +1,10 @@
-import * as functions from 'firebase-functions';
+import {initializeApp} from 'firebase-admin';
 
-export const github = functions.https.onRequest((req, res) => {
-  res.send('Github Webhook');
-});
+initializeApp();
 
-export const gitlab = functions.https.onRequest((req, res) => {
-  res.send('Gitlab Webhook');
-});
+// Triggers
+export {userCreated} from './triggers/user-created';
+
+// Rest
+export {github} from './rest/github';
+export {gitlab} from './rest/gitlab';
