@@ -4,7 +4,7 @@
   "description": "Configurable status board for multiple git platforms",
   "main": "index.js",
   "scripts": {
-    "build": "npm --prefix client run build",
+    "build": "npm --prefix client run build && npm --prefix functions run build",
     "lint": "npm --prefix client run lint",
     "deploy": "firebase deploy"
   },
