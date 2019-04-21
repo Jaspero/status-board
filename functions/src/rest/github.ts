@@ -5,8 +5,22 @@ import {EventType} from '../../../shared/enums/event-type.enum';
 import {FirestoreCollections} from '../../../shared/enums/firestore-collections.enum';
 import {ENV_CONFIG} from '../consts/env-config.const';
 
+function bufferEq(a: Buffer, b: Buffer) {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  let c = 0;
+
+  for (let i = 0; i < a.length; i++) {
+    c |= a[i] ^ b[i]; // XOR
+  }
+
+  return c === 0;
+}
+
 function verifySignature(data: string, signature: string) {
-  return Buffer.compare(
+  return bufferEq(
     new Buffer(signature),
     new Buffer(
       'sha1=' +
@@ -18,8 +32,8 @@ function verifySignature(data: string, signature: string) {
 }
 
 export const github = functions.https.onRequest(async (req, res) => {
-  const sign = (req.headers['x-hub-signature'] || '') as string;
-  const type = req.headers['x-github-event'] as EventType;
+  const sign = (req.headers['X-Hub-Signature'] || '') as string;
+  const type = req.headers['X-GitHub-Event'] as EventType;
 
   if (!verifySignature(JSON.stringify(req.body), sign)) {
     console.error('error verifying signature');
@@ -35,7 +49,7 @@ export const github = functions.https.onRequest(async (req, res) => {
   }`;
 
   console.log('event', type);
-  console.log(JSON.parse(req.body));
+  console.log(req.body);
 
   const toStore: any = {
     date,
