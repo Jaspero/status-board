@@ -1,1 +1,9 @@
 <router-outlet></router-outlet>
+<button class="menu" mat-fab [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="board/1">Board</button>
+  <button mat-menu-item routerLink="settings">Settings</button>
+  <button mat-menu-item routerLink="profile">Profile</button>
+</mat-menu>

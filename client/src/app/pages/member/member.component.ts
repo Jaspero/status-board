@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
@@ -16,7 +17,7 @@ import {notify} from '../../shared/utils/notify.operator';
 })
 export class MemberComponent implements OnInit {
   constructor(
-    private activatedRoute: ActivatedRoute,
+    public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private fb: FormBuilder
   ) {}
@@ -25,7 +26,7 @@ export class MemberComponent implements OnInit {
   loading$ = new BehaviorSubject(false);
 
   ngOnInit() {
-    this.form$ = this.activatedRoute.params.pipe(
+    this.form$ = this.afAuth.user.pipe(
       switchMap(({email}) =>
         this.afs
           .collection(FirestoreCollections.Members)

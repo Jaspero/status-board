@@ -39,7 +39,7 @@
 
     <div class="col-12">
       <div class="flex jc-end">
-        <button [class.loading]="loading$ | async" mat-raised-button color="primary">
+        <button [class.loading]="loading$ | async" mat-raised-button color="primary" (click)="save(form.getRawValue())">
           Save
         </button>
       </div>

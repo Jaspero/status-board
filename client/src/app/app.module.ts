@@ -1,3 +1,4 @@
+import {PortalModule} from '@angular/cdk/portal';
 import {NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
@@ -10,6 +11,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatMenuModule,
   MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -19,11 +21,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BoardComponent} from './pages/board/board.component';
+import {MemberPushPanelComponent} from './pages/board/panels/member-push-panel/member-push-panel.component';
 import {LoginComponent} from './pages/login/login.component';
+import {MemberComponent} from './pages/member/member.component';
 import {ResetPasswordComponent} from './pages/reset-password/reset-password.component';
 import {SettingsComponent} from './pages/settings/settings.component';
 import {ENV_CONFIG} from './shared/consts/env-config.const';
-import {MemberComponent} from './pages/member/member.component';
+
+const ENTRY_COMPONENTS = [MemberPushPanelComponent];
 
 @NgModule({
   declarations: [
@@ -32,7 +37,9 @@ import {MemberComponent} from './pages/member/member.component';
     BoardComponent,
     MemberComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+
+    ...ENTRY_COMPONENTS
   ],
   imports: [
     BrowserModule,
@@ -54,9 +61,12 @@ import {MemberComponent} from './pages/member/member.component';
     MatCardModule,
     MatDividerModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    PortalModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: ENTRY_COMPONENTS
 })
 export class AppModule {}

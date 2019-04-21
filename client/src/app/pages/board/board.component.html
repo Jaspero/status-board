@@ -1,3 +1,7 @@
-<p>
-  board works!
-</p>
+<div class="grid" *ngIf="board$ | async as board;">
+  <div *ngFor="let panel of board" [ngClass]="'col-' + panel.panel.layout.width">
+    <mat-card>
+      <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
+    </mat-card>
+  </div>
+</div>

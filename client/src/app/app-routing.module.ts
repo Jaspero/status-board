@@ -15,7 +15,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'member/:email',
+    path: 'profile',
     component: MemberComponent,
     canActivate: [AuthGuard]
   },
