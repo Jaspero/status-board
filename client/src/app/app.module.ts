@@ -8,7 +8,9 @@ import {
   MatCardModule,
   MatDividerModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
+  MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
@@ -50,7 +52,9 @@ import {MemberComponent} from './pages/member/member.component';
     MatButtonModule,
     MatSnackBarModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

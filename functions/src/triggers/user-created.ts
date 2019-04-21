@@ -3,7 +3,7 @@ import * as functions from 'firebase-functions';
 
 export const userCreated = functions.auth.user().onCreate(async user => {
   const documentRef = await firestore()
-    .doc('settings/members')
+    .doc('settings/general')
     .get();
   const members = (documentRef.data() || {}).members || [];
   const member = members.find((mem: any) => mem.email === user.email);

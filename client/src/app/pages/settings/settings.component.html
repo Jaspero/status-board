@@ -1,3 +1,49 @@
-<p>
-  settings works!
-</p>
+<ng-container *ngIf="form$ | async as form">
+  <form class="grid" [formGroup]="form" (ngSubmit)="save(form.getRawValue())">
+
+    <div class="col-12">
+      <mat-card>
+
+        <mat-card-header>
+          <mat-card-title>Members</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <div class="flex ai-center" *ngFor="let control of getMembers(form).controls; index as index;" [formGroup]="control">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option *ngFor="let r of role | keyvalue" [value]="r.value">{{r.key}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" type="button" (click)="removeMember(form, index)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="flex jc-end">
+            <button type="button" mat-button (click)="addMember(form)">Add</button>
+          </div>
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
+
+    <div class="col-12">
+      <div class="flex jc-end">
+        <button [class.loading]="loading$ | async" mat-raised-button color="primary">
+          Save
+        </button>
+      </div>
+    </div>
+
+  </form>
+</ng-container>

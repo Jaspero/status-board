@@ -33,14 +33,16 @@ export class MemberComponent implements OnInit {
           .valueChanges()
           .pipe(
             take(1),
-            map((value: Member) =>
-              this.fb.group({
+            map((value: Member) => {
+              value = value || {email};
+
+              return this.fb.group({
                 email: {value: email, disabled: true},
                 name: value.name || '',
                 github: value.github || '',
                 gitlab: value.gitlab || ''
-              })
-            )
+              });
+            })
           )
       )
     );
