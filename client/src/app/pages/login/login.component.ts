@@ -14,7 +14,7 @@ import {filter} from 'rxjs/operators';
 import {notify} from '../../shared/utils/notify.operator';
 
 @Component({
-  selector: 'jgp-login',
+  selector: 'jgb-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

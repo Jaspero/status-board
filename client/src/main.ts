@@ -11,4 +11,10 @@ if (environment.production) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
+  .then(module => {
+    /**
+     * Gives us a global reference to the injector
+     */
+    window['rootInjector'] = module.injector;
+  })
   .catch(err => console.error(err));

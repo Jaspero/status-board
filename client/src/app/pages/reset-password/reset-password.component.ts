@@ -6,7 +6,7 @@ import {from} from 'rxjs';
 import {notify} from '../../shared/utils/notify.operator';
 
 @Component({
-  selector: 'jgp-password',
+  selector: 'jgb-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
