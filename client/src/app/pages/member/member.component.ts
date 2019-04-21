@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject, from, Observable} from 'rxjs';
 import {finalize, map, switchMap, take} from 'rxjs/operators';
-import {FirestoreCollections} from '../../shared/enums/firestore-collections.enum';
+import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
 import {Member} from '../../shared/interfaces/member.interface';
 import {notify} from '../../shared/utils/notify.operator';
 

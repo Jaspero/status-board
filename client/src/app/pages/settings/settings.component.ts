@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject, from, Observable} from 'rxjs';
 import {finalize, map, take} from 'rxjs/operators';
-import {FirestoreCollections} from '../../shared/enums/firestore-collections.enum';
+import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
 import {FirestoreStaticDocuments} from '../../shared/enums/firestore-static-documents.enum';
 import {Role} from '../../shared/enums/role.enum';
 import {Settings} from '../../shared/interfaces/settings.interface';
