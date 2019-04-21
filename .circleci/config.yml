@@ -49,6 +49,9 @@ jobs:
             - firebase.json
             - public
             - functions/lib
+            - firestore.indexes.json
+            - firestore.rules
+            - .firebaserc
   deploy:
     docker:
       - image: flauc/firebase
@@ -61,7 +64,7 @@ jobs:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy Master to Firebase
-          command: npm run deploy  -- -m $CIRCLE_SHA1 --token $FIREBASE_CI_TOKEN --project jaspero-central
+          command: npm run deploy  -- -m $CIRCLE_SHA1 --token $FIREBASE_CI_TOKEN
 
 workflows:
   version: 2
