@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {EventType} from '../../../shared/enums/event-type.enum';
 import {FirestoreCollections} from '../../../shared/enums/firestore-collections.enum';
+import {GitProvider} from '../../../shared/enums/git-provider.enum';
 import {ENV_CONFIG} from '../consts/env-config.const';
 
 function bufferEq(a: Buffer, b: Buffer) {
@@ -53,7 +54,8 @@ export const github = functions.https.onRequest(async (req, res) => {
 
   const toStore: any = {
     date,
-    type
+    type,
+    provider: GitProvider.Github
   };
 
   switch (type) {

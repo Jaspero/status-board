@@ -1,3 +1,11 @@
-<p>
-  member-push-panel works!
-</p>
+<div class="flex jc-between" *ngFor="let member of members$ | async">
+  <div>{{member.member.name}}</div>
+  <ng-container *ngIf="member.event; else empty;">
+    <div>{{member.event.repository.full_name}}</div>
+    <div>{{member.event.commit.timestamp | date:'HH:mm'}}</div>
+    <div>{{member.event.commit.message}}</div>
+  </ng-container>
+  <ng-template #empty>
+    <div>No commits yet</div>
+  </ng-template>
+</div>
