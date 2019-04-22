@@ -1,3 +1,4 @@
 export enum FirestoreStaticDocuments {
-  GeneralSettings = 'general'
+  GeneralSettings = 'general',
+  BoardSettings = 'board'
 }

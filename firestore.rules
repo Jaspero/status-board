@@ -1,7 +1,12 @@
 service cloud.firestore {
+
+  function hasAccess() {
+    return request.auth.token.role == 'admin' || request.auth.token.role == 'member'
+  }
+
   match /databases/{database}/documents {
     match /{document=**} {
-      allow read, write;
+      allow read, write: if hasAccess()
     }
   }
 }

@@ -33,6 +33,11 @@ function verifySignature(data: string, signature: string) {
   );
 }
 
+const EVENT_MAP: {[key: string]: EventType} = {
+  push: EventType.Push,
+  check_suite: EventType.Pipeline
+};
+
 export const github = functions.https.onRequest(async (req, res) => {
   const sign = (req.headers['x-hub-signature'] || '') as string;
   const type = (req.headers['x-github-event'] || '') as EventType;
@@ -47,12 +52,12 @@ export const github = functions.https.onRequest(async (req, res) => {
 
   const toStore: any = {
     date: today(),
-    type,
+    type: EVENT_MAP[type],
     provider: GitProvider.Github
   };
 
   switch (type) {
-    case EventType.Push:
+    case EVENT_MAP.push:
       toStore.commit = req.body.head_commit;
       toStore.repository = req.body.repository;
 
@@ -60,6 +65,28 @@ export const github = functions.https.onRequest(async (req, res) => {
         .firestore()
         .doc(`${FirestoreCollections.Events}/${toStore.commit.id}`)
         .set(toStore);
+      break;
+    case EVENT_MAP['check_suite']:
+      await admin
+        .firestore()
+        .doc(
+          `${FirestoreCollections.Events}/${
+            req.body.check_suite.head_commit.id
+          }`
+        )
+        .set(
+          {
+            jobs: [
+              {
+                id: req.body.check_suite.id,
+                name: 'build',
+                status: req.body.check_suite.conclusion,
+                created_at: req.body.check_suite.conclusion
+              }
+            ]
+          },
+          {merge: true}
+        );
       break;
   }
 

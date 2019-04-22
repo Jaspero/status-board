@@ -28,6 +28,8 @@ import {MemberComponent} from './pages/member/member.component';
 import {ResetPasswordComponent} from './pages/reset-password/reset-password.component';
 import {SettingsComponent} from './pages/settings/settings.component';
 import {ENV_CONFIG} from './shared/consts/env-config.const';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 const ENTRY_COMPONENTS = [MemberPushPanelComponent];
 
@@ -65,7 +67,10 @@ const ENTRY_COMPONENTS = [MemberPushPanelComponent];
     MatIconModule,
     MatMenuModule,
     PortalModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

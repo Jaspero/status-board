@@ -18,12 +18,12 @@ import {notify} from '../../shared/utils/notify.operator';
 export class SettingsComponent implements OnInit {
   constructor(private afs: AngularFirestore, private fb: FormBuilder) {}
 
-  form$: Observable<FormGroup>;
+  generalForm$: Observable<FormGroup>;
   loading$ = new BehaviorSubject(false);
   role = Role;
 
   ngOnInit() {
-    this.form$ = this.afs
+    this.generalForm$ = this.afs
       .collection(FirestoreCollections.Settings)
       .doc(FirestoreStaticDocuments.GeneralSettings)
       .valueChanges()
@@ -60,13 +60,13 @@ export class SettingsComponent implements OnInit {
     members.removeAt(index);
   }
 
-  save(data) {
+  save(data, document = FirestoreStaticDocuments.GeneralSettings) {
     this.loading$.next(true);
 
     from(
       this.afs
         .collection(FirestoreCollections.Settings)
-        .doc(FirestoreStaticDocuments.GeneralSettings)
+        .doc(document)
         .set(data, {
           merge: true
         })
