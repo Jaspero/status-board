@@ -55,13 +55,13 @@ export const github = functions.https.onRequest(async (req, res) => {
     case EventType.Push:
       toStore.commit = req.body.head_commit;
       toStore.repository = req.body.repository;
+
+      await admin
+        .firestore()
+        .doc(`${FirestoreCollections.Events}/${toStore.commit.id}`)
+        .set(toStore);
       break;
   }
-
-  await admin
-    .firestore()
-    .doc(`${FirestoreCollections.Events}/${Date.now()}`)
-    .set(toStore);
 
   return res.json({});
 });

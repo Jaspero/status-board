@@ -1,3 +1,4 @@
 export enum EventType {
-  Push = 'push'
+  Push = 'push',
+  Pipeline = 'pipeline'
 }

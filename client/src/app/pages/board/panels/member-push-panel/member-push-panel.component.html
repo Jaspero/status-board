@@ -11,6 +11,11 @@
     <div>{{member.event.repository.full_name}}</div>
     <div>{{member.event.commit.timestamp | date:'HH:mm'}}</div>
     <div>{{member.event.commit.message}}</div>
+    <ng-container *ngIf="member.event.jobs">
+      <div *ngFor="let job of member.event.jobs" [ngClass]="job.status">
+        {{job.name}}
+      </div>
+    </ng-container>
   </ng-container>
   <ng-template #empty>
     <div>No commits yet</div>
