@@ -34,7 +34,7 @@ function verifySignature(data: string, signature: string) {
 
 export const github = functions.https.onRequest(async (req, res) => {
   const sign = (req.headers['X-Hub-Signature'] || '') as string;
-  const type = req.headers['X-GitHub-Event'] as EventType;
+  const type = (req.headers['X-GitHub-Event'] || '') as EventType;
 
   if (!verifySignature(JSON.stringify(req.body), sign)) {
     console.error('error verifying signature');
@@ -49,8 +49,8 @@ export const github = functions.https.onRequest(async (req, res) => {
     day < 10 ? `0${day}` : day
   }`;
 
+  console.log('headers', req.headers);
   console.log('event', type);
-  console.log(req.body);
 
   const toStore: any = {
     date,
