@@ -1,5 +1,6 @@
 import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import {FirestoreCollections} from '../../../shared/enums/firestore-collections.enum';
 
 // TODO: Populate member with provider data (name, photo)...
 export const userCreated = functions.auth.user().onCreate(async user => {
@@ -14,8 +15,16 @@ export const userCreated = functions.auth.user().onCreate(async user => {
       role: member.role
     };
 
-    // Set custom user claims on this newly created user.
-    await auth().setCustomUserClaims(user.uid, customClaims);
+    await Promise.all([
+      auth().setCustomUserClaims(user.uid, customClaims),
+      firestore()
+        .doc(`${FirestoreCollections.Members}/${user.email}`)
+        .set({
+          email: user.email,
+          name: user.displayName,
+          avatar: user.photoURL
+        })
+    ]);
   }
 
   return true;
