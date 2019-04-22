@@ -4,6 +4,7 @@ import * as functions from 'firebase-functions';
 import {EventType} from '../../../shared/enums/event-type.enum';
 import {FirestoreCollections} from '../../../shared/enums/firestore-collections.enum';
 import {GitProvider} from '../../../shared/enums/git-provider.enum';
+import {today} from '../../../shared/utils/today';
 import {ENV_CONFIG} from '../consts/env-config.const';
 
 function bufferEq(a: Buffer, b: Buffer) {
@@ -41,19 +42,11 @@ export const github = functions.https.onRequest(async (req, res) => {
     res.status(404).send({error: 'signature invalid'});
   }
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-  const date = `${year}-${month < 10 ? `0${month}` : month}-${
-    day < 10 ? `0${day}` : day
-  }`;
-
-  console.log('headers', req.headers);
   console.log('event', type);
+  console.log('body', req.body);
 
   const toStore: any = {
-    date,
+    date: today(),
     type,
     provider: GitProvider.Github
   };
@@ -67,8 +60,8 @@ export const github = functions.https.onRequest(async (req, res) => {
 
   await admin
     .firestore()
-    .doc(`${FirestoreCollections.Events}/${today.getTime()}`)
+    .doc(`${FirestoreCollections.Events}/${Date.now()}`)
     .set(toStore);
 
-  res.json({});
+  return res.json({});
 });
