@@ -12,6 +12,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -63,7 +64,8 @@ const ENTRY_COMPONENTS = [MemberPushPanelComponent];
     MatSelectModule,
     MatIconModule,
     MatMenuModule,
-    PortalModule
+    PortalModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

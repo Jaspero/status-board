@@ -1,5 +1,12 @@
-<div class="flex jc-between" *ngFor="let member of members$ | async">
-  <div>{{member.member.name}}</div>
+<div class="flex jc-center m-y-s" *ngIf="loading$ | async">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+
+<div class="flex ai-center jc-between" *ngFor="let member of members$ | async">
+  <div class="flex ai-center">
+    <div class="avatar m-r-xs" [style.background-image]="'url(' + member.member.avatar + ')'"></div>
+    <div>{{member.member.name}}</div>
+  </div>
   <ng-container *ngIf="member.event; else empty;">
     <div>{{member.event.repository.full_name}}</div>
     <div>{{member.event.commit.timestamp | date:'HH:mm'}}</div>

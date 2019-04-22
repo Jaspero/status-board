@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {combineLatest, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 import {EventType} from '../../../../../../../shared/enums/event-type.enum';
 import {FirebaseOperator} from '../../../../../../../shared/enums/firebase-operator.enum';
 import {FirestoreCollections} from '../../../../../../../shared/enums/firestore-collections.enum';
@@ -17,6 +17,7 @@ export class MemberPushPanelComponent implements OnInit {
   constructor(private afs: AngularFirestore) {}
 
   members$: Observable<any>;
+  loading$ = new BehaviorSubject(true);
 
   ngOnInit() {
     const date = today();
@@ -53,7 +54,8 @@ export class MemberPushPanelComponent implements OnInit {
 
           return acc;
         }, []);
-      })
+      }),
+      tap(() => this.loading$.next(false))
     );
   }
 }
