@@ -33,8 +33,8 @@ function verifySignature(data: string, signature: string) {
 }
 
 export const github = functions.https.onRequest(async (req, res) => {
-  const sign = (req.headers['X-Hub-Signature'] || '') as string;
-  const type = (req.headers['X-GitHub-Event'] || '') as EventType;
+  const sign = (req.headers['x-hub-signature'] || '') as string;
+  const type = (req.headers['x-github-event'] || '') as EventType;
 
   if (!verifySignature(JSON.stringify(req.body), sign)) {
     console.error('error verifying signature');
