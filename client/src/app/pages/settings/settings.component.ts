@@ -43,10 +43,10 @@ export class SettingsComponent implements OnInit {
     return form.get('members') as FormArray;
   }
 
-  mapMember(member = {}) {
+  mapMember(member: {email?: string; role?: Role} = {}) {
     return this.fb.group({
-      email: ['', Validators.required],
-      role: Role.Member
+      email: [member.email || '', Validators.required],
+      role: member.role || Role.Member
     });
   }
 

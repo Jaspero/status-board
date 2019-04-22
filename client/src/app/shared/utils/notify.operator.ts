@@ -24,13 +24,14 @@ export function notify(
     return source$.pipe(
       tap(() => {
         if (finalOptions.success) {
-          snackBar.open(finalOptions.success, 'Dismiss');
+          snackBar.open(finalOptions.success, 'Dismiss', {duration: 3000});
         }
       }),
       catchError(err => {
         if (finalOptions.error) {
           snackBar.open(finalOptions.error, 'Dismiss', {
-            panelClass: 'snack-bar-error'
+            panelClass: 'snack-bar-error',
+            duration: 3000
           });
         }
 
