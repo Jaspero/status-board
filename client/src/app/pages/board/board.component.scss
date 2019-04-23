@@ -63,6 +63,7 @@
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(4, 1fr);
   opacity: 0;
+  visibility: hidden;
   transition: .4s;
 
   & > &-item {
@@ -71,6 +72,7 @@
 
   // Edit mode
   .jgb-edit & {
+    visibility: visible;
     opacity: 1;
   }
 }
@@ -121,6 +123,7 @@
   height: 80px;
   background: $primary;
   box-shadow: none;
+  visibility: hidden;
   transition: .4s;
 
   &-item {
@@ -165,6 +168,7 @@
 
   // Edit mode
   .jgb-edit & {
+    visibility: visible;
     bottom: -72px;
     box-shadow: 0 -4px 10px 0 rgba(0,0,0,.28);
 
