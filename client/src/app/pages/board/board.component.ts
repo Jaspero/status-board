@@ -46,23 +46,20 @@ export class BoardComponent implements OnInit {
             {
               type: PanelType.MemberPush,
               layout: {
-                width: Width.Twelve,
-                order: 0
+                colStart: 1,
+                colSpan: 2,
+                rowStart: 1,
+                rowSpan: 1
               },
               metadata: {}
             }
           ]
         }).pipe(
           map((board: Board) =>
-            board.panels
-              .map(panel => ({
-                panel,
-                portal: new ComponentPortal(panelMap[panel.type])
-              }))
-              .sort(
-                (pOne, pTwo) =>
-                  pOne.panel.layout.order - pTwo.panel.layout.order
-              )
+            board.panels.map(panel => ({
+              panel,
+              portal: new ComponentPortal(panelMap[panel.type])
+            }))
           )
         )
       )

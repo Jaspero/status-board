@@ -1,0 +1,173 @@
+@import "../../../scss/variables";
+
+/**
+ * Board
+ *
+ * Status board used to display various panels
+ *
+ *============================================================================*/
+
+
+
+
+
+/* Board container
+ *============================================================================*/
+
+
+.jgb-board {
+  position: relative;
+  padding-bottom: calc(9 / 16 * 100%); // 16x9 aspect ratio
+}
+
+
+
+
+
+/* Widget trigger
+ *============================================================================*/
+
+.jgb-widget-trigger {
+  position: fixed;
+  z-index: 1;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  transition: .4s;
+
+  // Edit mode
+  .jgb-edit & {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+/* Board placeholder
+ *============================================================================*/
+
+.jgb-board-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 68px;
+  grid-gap: 16px;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  opacity: 0;
+  transition: .4s;
+
+  & > &-item {
+    border: 1px dotted;
+  }
+
+  // Edit mode
+  .jgb-edit & {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+/* Main board view
+ *============================================================================*/
+
+
+.jgb-board-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 68px;
+  grid-gap: 16px;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+
+  & > &-item {
+    overflow: hidden;
+    display: flex;
+    background: #eee;
+  }
+}
+
+
+
+
+
+/* Board selection
+ *============================================================================*/
+
+.jgb-board-selection {
+  position: fixed;
+  z-index: 1;
+  bottom: -80px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  background: $primary;
+  box-shadow: none;
+  transition: .4s;
+
+  &-item {
+    position: relative;
+    padding: 16px;
+    margin: 0 12px;
+    cursor: pointer;
+    border: 2px solid $fg-l-quaternary;
+    border-radius: 4px;
+
+    &.active {
+      border: 2px solid $accent;
+    }
+
+    &-name {
+      color: white;
+      height: 24px;
+      line-height: 24px;
+      cursor: text;
+      user-select: none;
+    }
+
+    &-remove {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      border: none;
+      background: $primary;
+      color: white;
+      user-select: none;
+      opacity: 0;
+      transition: .4s;
+    }
+
+    &:hover &-remove {
+      opacity: 1;
+    }
+  }
+
+  // Edit mode
+  .jgb-edit & {
+    bottom: -72px;
+    box-shadow: 0 -4px 10px 0 rgba(0,0,0,.28);
+
+    &:hover {
+      bottom: 0;
+    }
+  }
+}
