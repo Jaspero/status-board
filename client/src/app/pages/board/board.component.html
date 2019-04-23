@@ -1,59 +1,55 @@
-<div class="jgb-edit">
+<button class="jgb-widget-trigger" mat-stroked-button color="primary">
+  <mat-icon>widgets</mat-icon>
+  <span>&nbsp;Widgets</span>
+</button>
 
-  <button class="jgb-widget-trigger" mat-stroked-button color="primary">
-    <mat-icon>widgets</mat-icon>
-    <span>&nbsp;Widgets</span>
+<main class="jgb-board">
+  <div class="jgb-board-placeholder" aria-hidden="true">
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+    <div class="jgb-board-placeholder-item"></div>
+  </div>
+  <div class="jgb-board-grid" *ngIf="board$ | async as board;">
+    <div
+      class="jgb-board-grid-item"
+      *ngFor="let panel of board"
+      [style.grid-row-start]="panel.panel.layout.rowStart"
+      [style.grid-row-end]="'span ' + panel.panel.layout.rowSpan"
+      [style.grid-column-start]="panel.panel.layout.colStart"
+      [style.grid-column-end]="'span ' + panel.panel.layout.colSpan"
+    >
+      <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
+    </div>
+  </div>
+</main>
+
+<footer class="jgb-board-selection">
+  <div class="jgb-board-selection-item active">
+    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
+    <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
+  </div>
+  <div class="jgb-board-selection-item">
+    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
+    <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
+  </div>
+  <div class="jgb-board-selection-item">
+    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
+    <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
+  </div>
+  <button mat-flat-button color="primary">
+    <mat-icon>add</mat-icon>
   </button>
-
-  <main class="jgb-board">
-    <div class="jgb-board-placeholder" aria-hidden="true">
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-    </div>
-    <div class="jgb-board-grid" *ngIf="board$ | async as board;">
-      <div
-        class="jgb-board-grid-item"
-        *ngFor="let panel of board"
-        [style.grid-row-start]="panel.panel.layout.rowStart"
-        [style.grid-row-end]="'span ' + panel.panel.layout.rowSpan"
-        [style.grid-column-start]="panel.panel.layout.colStart"
-        [style.grid-column-end]="'span ' + panel.panel.layout.colSpan"
-      >
-        <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
-      </div>
-    </div>
-  </main>
-
-  <footer class="jgb-board-selection">
-    <div class="jgb-board-selection-item active">
-      <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
-      <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
-    </div>
-    <div class="jgb-board-selection-item">
-      <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
-      <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
-    </div>
-    <div class="jgb-board-selection-item">
-      <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
-      <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
-    </div>
-    <button mat-flat-button color="primary">
-      <mat-icon>add</mat-icon>
-    </button>
-  </footer>
-
-</div>
+</footer>
