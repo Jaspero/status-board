@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {ConfirmationOptions} from './confirmation-options.interface';
 
 @Component({
-  selector: 'jgp-confrimation',
+  selector: 'jgb-confirmation',
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
