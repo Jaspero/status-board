@@ -41,3 +41,35 @@ h3 { font-size: 32px; }
 h4 { font-size: 28px; }
 h5 { font-size: 24px; }
 h6 { font-size: 20px; }
+
+
+
+
+
+/* Loading class for buttons
+ *============================================================================*/
+
+button.loading,
+a.loading {
+  position: relative;
+  color: transparent !important;
+  background: transparent !important;
+  pointer-events: none !important;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 12px);
+    left: calc(50% - 12px);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3px solid #757575;
+    border-top-color: var(--primary);
+    animation: loading .65s infinite cubic-bezier(0.5, 0.25, 0.5, 0.75);
+    @keyframes loading {
+      from { transform: rotate(0); }
+      to   { transform: rotate(360deg); }
+    }
+  }
+}
