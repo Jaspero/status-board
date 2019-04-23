@@ -128,3 +128,20 @@ img {
   height: auto; /* [1] */
   vertical-align: middle; /* [2] */
 }
+
+
+
+
+
+/* Angular material resets
+ *============================================================================*/
+
+// Default font size for mat-form-field
+.mat-form-field {
+  font-size: 14px;
+}
+
+// Increases default min-height of mat-dialog-actions
+.mat-dialog-actions.mat-dialog-actions {
+  min-height: 64px;
+}
