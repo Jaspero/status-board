@@ -33,11 +33,13 @@
   top: 16px;
   left: 50%;
   transform: translate(-50%, 0);
+  visibility: hidden;
   opacity: 0;
   transition: .4s;
 
   // Edit mode
   .jgb-edit & {
+    visibility: visible;
     opacity: 1;
   }
 }
