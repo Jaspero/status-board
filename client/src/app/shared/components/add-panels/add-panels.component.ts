@@ -77,8 +77,9 @@ export class AddPanelsComponent {
   }
 
   add(panel) {
+    const position: any = this.freePosition(panel);
+
     let id: string;
-    let position: any = this.freePosition(panel);
     let toSet: any;
 
     if (position && this.data.board) {
