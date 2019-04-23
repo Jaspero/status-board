@@ -1,29 +1,34 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material';
 import {BehaviorSubject, from, Observable} from 'rxjs';
 import {finalize, map, take} from 'rxjs/operators';
-import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
-import {FirestoreStaticDocuments} from '../../shared/enums/firestore-static-documents.enum';
-import {Role} from '../../shared/enums/role.enum';
-import {Settings} from '../../shared/interfaces/settings.interface';
-import {notify} from '../../shared/utils/notify.operator';
+import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
+import {FirestoreStaticDocuments} from '../../enums/firestore-static-documents.enum';
+import {Role} from '../../enums/role.enum';
+import {Settings} from '../../interfaces/settings.interface';
+import {notify} from '../../utils/notify.operator';
 
 @Component({
-  selector: 'jgb-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  selector: 'jgb-members',
+  templateUrl: './members.component.html',
+  styleUrls: ['./members.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsComponent implements OnInit {
-  constructor(private afs: AngularFirestore, private fb: FormBuilder) {}
+export class MembersComponent implements OnInit {
+  constructor(
+    private afs: AngularFirestore,
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<MembersComponent>
+  ) {}
 
-  generalForm$: Observable<FormGroup>;
+  form$: Observable<FormGroup>;
   loading$ = new BehaviorSubject(false);
   role = Role;
 
   ngOnInit() {
-    this.generalForm$ = this.afs
+    this.form$ = this.afs
       .collection(FirestoreCollections.Settings)
       .doc(FirestoreStaticDocuments.GeneralSettings)
       .valueChanges()
@@ -75,6 +80,8 @@ export class SettingsComponent implements OnInit {
         finalize(() => this.loading$.next(false)),
         notify()
       )
-      .subscribe();
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
   }
 }

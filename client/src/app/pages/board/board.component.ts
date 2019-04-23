@@ -3,11 +3,13 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {ActivatedRoute} from '@angular/router';
 import {Observable, of} from 'rxjs';
+import {shareReplay} from 'rxjs/internal/operators';
 import {map, switchMap} from 'rxjs/operators';
+import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
 import {PanelType} from '../../shared/enums/panel-type.enum';
-import {Width} from '../../shared/enums/width.enum';
 import {Board} from '../../shared/interfaces/board.interface';
 import {Panel} from '../../shared/interfaces/panel.interface';
+import {StateService} from '../../shared/services/state/state.service';
 import {MemberPushPanelComponent} from './panels/member-push-panel/member-push-panel.component';
 
 @Component({
@@ -18,6 +20,7 @@ import {MemberPushPanelComponent} from './panels/member-push-panel/member-push-p
 })
 export class BoardComponent implements OnInit {
   constructor(
+    public state: StateService,
     private activatedRoute: ActivatedRoute,
     private afs: AngularFirestore
   ) {}
@@ -29,10 +32,26 @@ export class BoardComponent implements OnInit {
     }>
   >;
 
+  boards$: Observable<Board[]>;
+
   ngOnInit() {
     const panelMap = {
       [PanelType.MemberPush]: MemberPushPanelComponent
     };
+
+    this.boards$ = this.afs
+      .collection(FirestoreCollections.Boards)
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          console.log('in here');
+          return actions.map(action => ({
+            id: action.payload.doc.id,
+            ...action.payload.doc.data()
+          })) as Board[];
+        }),
+        shareReplay(1)
+      );
 
     this.board$ = this.activatedRoute.params.pipe(
       switchMap(({id}) =>

@@ -3,7 +3,7 @@
   <span>&nbsp;Widgets</span>
 </button>
 
-<main class="jgb-board">
+<main class="jgb-board" [class.jgb-edit]="state.editMode$ | async">
   <div class="jgb-board-placeholder" aria-hidden="true">
     <div class="jgb-board-placeholder-item"></div>
     <div class="jgb-board-placeholder-item"></div>
@@ -37,16 +37,8 @@
 </main>
 
 <footer class="jgb-board-selection">
-  <div class="jgb-board-selection-item active">
-    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
-    <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
-  </div>
-  <div class="jgb-board-selection-item">
-    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
-    <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
-  </div>
-  <div class="jgb-board-selection-item">
-    <p class="jgb-board-selection-item-name" contenteditable="true">Board 1</p>
+  <div class="jgb-board-selection-item" *ngFor="let board of boards$ | async">
+    <p class="jgb-board-selection-item-name" contenteditable="true">{{board.name}}</p>
     <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
   </div>
   <button mat-flat-button color="primary">

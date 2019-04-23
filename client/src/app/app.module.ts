@@ -14,7 +14,8 @@ import {
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -24,21 +25,23 @@ import {AppComponent} from './app.component';
 import {BoardComponent} from './pages/board/board.component';
 import {MemberPushPanelComponent} from './pages/board/panels/member-push-panel/member-push-panel.component';
 import {LoginComponent} from './pages/login/login.component';
-import {MemberComponent} from './pages/member/member.component';
+import {ProfileComponent} from './shared/components/profile/profile.component';
 import {ResetPasswordComponent} from './pages/reset-password/reset-password.component';
-import {SettingsComponent} from './pages/settings/settings.component';
+import {MembersComponent} from './shared/components/members/members.component';
 import {ENV_CONFIG} from './shared/consts/env-config.const';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 
-const ENTRY_COMPONENTS = [MemberPushPanelComponent];
+const ENTRY_COMPONENTS = [
+  MemberPushPanelComponent,
+  MembersComponent,
+  ProfileComponent
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsComponent,
     BoardComponent,
-    MemberComponent,
     LoginComponent,
     ResetPasswordComponent,
 
@@ -68,6 +71,8 @@ const ENTRY_COMPONENTS = [MemberPushPanelComponent];
     MatMenuModule,
     PortalModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     })

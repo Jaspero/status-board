@@ -2,24 +2,26 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {MatDialogRef} from '@angular/material';
 import {BehaviorSubject, from, Observable} from 'rxjs';
 import {finalize, map, switchMap, take} from 'rxjs/operators';
-import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
-import {Member} from '../../shared/interfaces/member.interface';
-import {notify} from '../../shared/utils/notify.operator';
+import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
+import {Member} from '../../interfaces/member.interface';
+import {notify} from '../../utils/notify.operator';
+import {MembersComponent} from '../members/members.component';
 
 @Component({
-  selector: 'jgb-member',
-  templateUrl: './member.component.html',
-  styleUrls: ['./member.component.scss'],
+  selector: 'jgb-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MemberComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<MembersComponent>
   ) {}
 
   form$: Observable<FormGroup>;
@@ -64,6 +66,8 @@ export class MemberComponent implements OnInit {
         finalize(() => this.loading$.next(false)),
         notify()
       )
-      .subscribe();
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
   }
 }

@@ -1,16 +1,15 @@
 <router-outlet></router-outlet>
-<button class="jgb-menu" mat-button color="primary" [matMenuTriggerFor]="menu">
-  <mat-icon>menu</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>Edit/Display</button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item>Settings</button>
-  <button mat-menu-item>Members</button>
-  <button mat-menu-item>My profile</button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item>Logout</button>
-  <!--<button mat-menu-item routerLink="board/1">Board</button>-->
-  <!--<button mat-menu-item routerLink="settings">Settings</button>-->
-  <!--<button mat-menu-item routerLink="profile">Profile</button>-->
-</mat-menu>
+
+<ng-container *ngIf="afAuth.user | async">
+  <button class="jgb-menu" mat-button color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="state.toggleEdit()">{{mode$ | async}}</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="openDialog('members')">Members</button>
+    <button mat-menu-item (click)="openDialog('profile')">My profile</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logOut()">Logout</button>
+  </mat-menu>
+</ng-container>
