@@ -9,16 +9,19 @@
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" />
         </mat-form-field>&nbsp;
+
         <mat-form-field appearance="outline" class="f1">
           <mat-label>Role</mat-label>
           <mat-select formControlName="role">
             <mat-option *ngFor="let r of role | keyvalue" [value]="r.value">{{r.key}}</mat-option>
           </mat-select>
         </mat-form-field>
+
         <button mat-icon-button color="warn" type="button" (click)="removeMember(form, index)">
           <mat-icon>cancel</mat-icon>
         </button>
       </div>
+
       <button type="button" mat-stroked-button (click)="addMember(form)">
         <mat-icon>add</mat-icon>
         <span>&nbsp;Add new member</span>

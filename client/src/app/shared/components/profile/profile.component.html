@@ -1,39 +1,38 @@
 <ng-container *ngIf="form$ | async as form">
-  <form class="grid" [formGroup]="form" (ngSubmit)="save(form.getRawValue())">
+  <form [formGroup]="form" (ngSubmit)="save(form.getRawValue())">
 
-    <div class="col-12">
-      <mat-card>
+    <h1 mat-dialog-title>My profile</h1>
 
-        <mat-card-content>
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" />
-          </mat-form-field>
+    <mat-dialog-content>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" />
-          </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Github Handle</mat-label>
-            <input matInput formControlName="github" />
-          </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Github Handle</mat-label>
+        <input matInput formControlName="github" />
+      </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Gitlab Handle</mat-label>
-            <input matInput formControlName="gitlab" />
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
-    </div>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Gitlab Handle</mat-label>
+        <input matInput formControlName="gitlab" />
+      </mat-form-field>
+    </mat-dialog-content>
 
-    <div class="col-12">
-      <div class="flex jc-end">
-        <button [class.loading]="loading$ | async" mat-raised-button color="primary">
-          Save
-        </button>
-      </div>
-    </div>
+    <mat-dialog-actions class="jc-end">
+      <button mat-button [mat-dialog-close]>
+        Cancel
+      </button>&nbsp;
+      <button [class.loading]="loading$ | async" mat-flat-button color="primary">
+        Save changes
+      </button>
+    </mat-dialog-actions>
+
   </form>
 </ng-container>
