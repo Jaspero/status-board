@@ -1,6 +1,11 @@
 <section [class.jgb-edit]="state.editMode$ | async">
 
-  <button class="jgb-widget-trigger" mat-stroked-button color="primary">
+  <button
+    class="jgb-widget-trigger"
+    mat-stroked-button
+    color="primary"
+    [disabled]="(board$ | async) === null"
+    (click)="openPanelDialog()">
     <mat-icon>widgets</mat-icon>
     <span>&nbsp;Widgets</span>
   </button>
@@ -24,26 +29,39 @@
       <div class="jgb-board-placeholder-item"></div>
       <div class="jgb-board-placeholder-item"></div>
     </div>
-    <div class="jgb-board-grid" *ngIf="board$ | async as board;">
+    <div class="jgb-board-grid" *ngIf="panels$ | async as panels;">
       <div
         class="jgb-board-grid-item"
-        *ngFor="let panel of board"
+        *ngFor="let panel of panels"
         [style.grid-row-start]="panel.panel.layout.rowStart"
         [style.grid-row-end]="'span ' + panel.panel.layout.rowSpan"
         [style.grid-column-start]="panel.panel.layout.colStart"
-        [style.grid-column-end]="'span ' + panel.panel.layout.colSpan"
-      >
+        [style.grid-column-end]="'span ' + panel.panel.layout.colSpan">
         <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
       </div>
     </div>
   </main>
 
-  <footer class="jgb-board-selection">
-    <div class="jgb-board-selection-item" *ngFor="let board of boards$ | async">
+  <footer
+    *ngIf="boards$ | async as boards"
+    class="jgb-board-selection"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="sortBoards($event, boards)">
+
+    <div
+      class="jgb-board-selection-item"
+      *ngFor="let board of boards"
+      cdkDrag
+      [cdkDragData]="board"
+      [class.active]="(activatedRoute.params | async).id === board.id">
       <p class="jgb-board-selection-item-name" contenteditable="true">{{board.name}}</p>
-      <button class="jgb-board-selection-item-remove"><mat-icon>cancel</mat-icon></button>
+      <button class="jgb-board-selection-item-remove" (click)="removeBoard(board)">
+        <mat-icon>cancel</mat-icon>
+      </button>
     </div>
-    <button mat-flat-button color="primary">
+
+    <button mat-flat-button color="primary" (click)="addBoard()">
       <mat-icon>add</mat-icon>
     </button>
   </footer>

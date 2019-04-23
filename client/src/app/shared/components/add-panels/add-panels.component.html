@@ -1,0 +1,6 @@
+<div *ngFor="let panel of panels">
+  <h1>{{panel.name}}</h1>
+  <p>{{panel.description}}</p>
+  <p>{{panel.layout.rowSpan}} x {{panel.layout.colSpan}}</p>
+  <button mat-button (click)="add(panel)">Add</button>
+</div>
