@@ -18,7 +18,7 @@ html {
   font-family: $font-primary;
   line-height: 1.5;
   font-size: 16px;
-  color: $fg-d-secondary;
+  color: $fg-d-primary;
 }
 
 
@@ -32,7 +32,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-secondary;
   line-height: 1.2;
   font-weight: 700;
-  color: $fg-d-primary;
 }
 
 h1 { font-size: 40px; }

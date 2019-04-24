@@ -12,22 +12,7 @@
 
   <main class="jgb-board">
     <div class="jgb-board-placeholder" aria-hidden="true">
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
-      <div class="jgb-board-placeholder-item"></div>
+      <div *ngFor="let i of [].constructor(16)" class="jgb-board-placeholder-item"></div>
     </div>
     <div class="jgb-board-grid" *ngIf="panels$ | async as panels;">
       <div
@@ -37,6 +22,12 @@
         [style.grid-row-end]="'span ' + panel.panel.layout.rowSpan"
         [style.grid-column-start]="panel.panel.layout.colStart"
         [style.grid-column-end]="'span ' + panel.panel.layout.colSpan">
+        <div class="jgb-board-grid-item-controls">
+          <mat-icon class="jgb-board-grid-item-controls-drag" aria-hidden="true">open_with</mat-icon>
+          <button class="jgb-board-grid-item-controls-remove" mat-icon-button>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
         <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
       </div>
     </div>
