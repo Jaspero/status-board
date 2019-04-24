@@ -1,6 +1,8 @@
-<div *ngFor="let panel of panels">
-  <h1>{{panel.name}}</h1>
-  <p>{{panel.description}}</p>
-  <p>{{panel.layout.rowSpan}} x {{panel.layout.colSpan}}</p>
-  <button mat-button (click)="add(panel)">Add</button>
-</div>
+<mat-nav-list>
+  <h3 mat-subheader>4x2</h3>
+  <mat-list-item *ngFor="let panel of panels" (click)="add(panel)">
+    <mat-icon mat-list-icon>widgets</mat-icon>
+    <h4 matLine>{{panel.name}}</h4>
+    <p matLine>{{panel.description}}</p>
+  </mat-list-item>
+</mat-nav-list>

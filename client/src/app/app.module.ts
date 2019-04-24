@@ -13,6 +13,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSelectModule,
@@ -77,6 +78,7 @@ const ENTRY_COMPONENTS = [
     PortalModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatListModule,
     DragDropModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', {
