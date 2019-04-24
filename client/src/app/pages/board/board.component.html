@@ -48,20 +48,22 @@
     cdkDropList
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="sortBoards($event, boards)">
-
     <div
       class="jgb-board-selection-item"
       *ngFor="let board of boards"
+      [routerLink]="['/board', board.id]"
       cdkDrag
+      cdkDragLockAxis="x"
       [cdkDragData]="board"
       [class.active]="(activatedRoute.params | async).id === board.id">
-      <p class="jgb-board-selection-item-name" contenteditable="true">{{board.name}}</p>
+      <mat-icon class="jgb-board-selection-item-drag" cdkDragHandle>drag_indicator</mat-icon>
+      <p class="jgb-board-selection-item-name">{{board.name}}</p>
       <button class="jgb-board-selection-item-remove" (click)="removeBoard(board)">
         <mat-icon>cancel</mat-icon>
       </button>
     </div>
 
-    <button mat-flat-button color="primary" (click)="addBoard()">
+    <button mat-button color="primary" (click)="addBoard()">
       <mat-icon>add</mat-icon>
     </button>
   </footer>

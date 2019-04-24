@@ -134,14 +134,21 @@ export class BoardComponent implements OnInit {
   }
 
   removeBoard(board) {
-    confirmation([
-      switchMap(() =>
-        this.afs
-          .collection(FirestoreCollections.Boards)
-          .doc(board.id)
-          .delete()
-      )
-    ]);
+    confirmation(
+      [
+        switchMap(() =>
+          this.afs
+            .collection(FirestoreCollections.Boards)
+            .doc(board.id)
+            .delete()
+        )
+      ],
+      {
+        header: `Remove ${board.name}?`,
+        confirm: 'Remove',
+        negate: 'Cancel'
+      }
+    );
   }
 
   sortBoards(event, boards: Board[]) {

@@ -114,66 +114,82 @@
 .jgb-board-selection {
   position: fixed;
   z-index: 1;
-  bottom: -80px;
+  bottom: 0;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80px;
-  background: $primary;
-  box-shadow: none;
+  height: 68px;
+  padding: 0 64px;
   visibility: hidden;
+  opacity: 0;
   transition: .4s;
 
   &-item {
     position: relative;
-    padding: 16px;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
     margin: 0 12px;
     cursor: pointer;
-    border: 2px solid $fg-l-quaternary;
+    background: white;
+    border: 1px solid $fg-d-quaternary;
     border-radius: 4px;
+    outline: none;
 
     &.active {
-      border: 2px solid $accent;
+      border: 1px solid $primary;
     }
 
     &-name {
-      color: white;
       height: 24px;
       line-height: 24px;
-      cursor: text;
+      margin: 0 24px 0 8px;
+      user-select: none;
+    }
+
+    &-drag {
+      cursor: grab;
       user-select: none;
     }
 
     &-remove {
       position: absolute;
-      top: -12px;
+      top: -4px;
       right: -12px;
       padding: 0;
       margin: 0;
+      background: white;
       outline: none;
       border: none;
-      background: $primary;
-      color: white;
       user-select: none;
-      opacity: 0;
-      transition: .4s;
-    }
-
-    &:hover &-remove {
-      opacity: 1;
     }
   }
 
   // Edit mode
   .jgb-edit & {
     visibility: visible;
-    bottom: -72px;
-    box-shadow: 0 -4px 10px 0 rgba(0,0,0,.28);
-
-    &:hover {
-      bottom: 0;
-    }
+    opacity: 1;
   }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.jgb-board-selection.cdk-drop-list-dragging > .jgb-board-selection-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
