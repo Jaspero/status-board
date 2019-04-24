@@ -49,11 +49,6 @@ export class AddPanelsComponent {
             freeColSpot < panel.layout.colSpan;
             freeColSpot++
           ) {
-            console.log('rowIndex', rowIndex);
-            console.log('freeRowSpot', freeRowSpot);
-            console.log('colIndex', colIndex);
-            console.log('freeColSpot', freeColSpot);
-
             if (
               this.data.grid[rowIndex + freeRowSpot][colIndex + freeColSpot]
             ) {
