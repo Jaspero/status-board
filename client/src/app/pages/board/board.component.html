@@ -11,6 +11,12 @@
   </button>
 
   <main class="jgb-board">
+    <div class="jgb-board-empty" *ngIf="!(boards$ | async).length">
+      <p>Welcome to Git Status Board.</p>
+      <p>Start by adding a board:</p>
+      <br>
+      <button mat-flat-button color="primary" (click)="addBoard(); state.toggleEdit()">Add board</button>
+    </div>
     <div class="jgb-board-placeholder" aria-hidden="true">
       <div *ngFor="let i of [].constructor(16)" class="jgb-board-placeholder-item"></div>
     </div>

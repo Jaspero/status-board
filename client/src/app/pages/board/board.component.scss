@@ -47,6 +47,35 @@
 
 
 
+/* Empty state
+ *============================================================================*/
+
+.jgb-board-empty {
+  position: fixed;
+  z-index: 1;
+  left: 64px;
+  top: 64px;
+  width: calc(100% - 128px);
+  height: calc(100% - 128px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  visibility: visible;
+  opacity: 1;
+  transition: .4s;
+
+  // Edit mode
+  .jgb-edit & {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+
+
+
+
 /* Board placeholder
  *============================================================================*/
 
