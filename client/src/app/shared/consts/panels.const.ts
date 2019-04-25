@@ -6,7 +6,7 @@ export const PANELS = Object.freeze([
     description: 'A list showing push request from a member',
     type: PanelType.MemberPush,
     layout: {
-      colSpan: 4,
+      colSpan: 2,
       rowSpan: 2
     }
   }

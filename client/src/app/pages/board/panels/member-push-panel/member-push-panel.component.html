@@ -1,23 +1,24 @@
-<div class="flex jc-center m-y-s" *ngIf="loading$ | async">
+<div class="flex jc-center p-y-s" *ngIf="loading$ | async">
   <mat-spinner [diameter]="40"></mat-spinner>
 </div>
 
-<div class="flex ai-center jc-between" *ngFor="let member of members$ | async">
-  <div class="flex ai-center">
-    <div class="avatar m-r-xs" [style.background-image]="'url(' + member.member.avatar + ')'"></div>
-    <div>{{member.member.name}}</div>
-  </div>
-  <ng-container *ngIf="member.event; else empty;">
-    <div>{{member.event.repository.full_name}}</div>
-    <div>{{member.event.commit.timestamp | date:'HH:mm'}}</div>
-    <div>{{member.event.commit.message}}</div>
-    <ng-container *ngIf="member.event.jobs">
-      <div *ngFor="let job of member.event.jobs" [ngClass]="job.status">
-        {{job.name}}
-      </div>
-    </ng-container>
+<mat-list>
+  <ng-container *ngFor="let member of members$ | async">
+    <mat-list-item *ngIf="member.event; else empty;">
+      <img matListAvatar src="{{member.member.avatar}}" alt="{{member.member.name}}">
+      <h4 matLine>{{member.member.name}} → {{member.event.repository.full_name}} ({{member.event.commit.timestamp | date:'HH:mm'}})</h4>
+      <p matLine>{{member.event.commit.message}}</p>
+      <ng-container *ngIf="member.event.jobs">
+        <p matLine *ngFor="let job of member.event.jobs" [ngClass]="job.status">
+          {{job.name}}
+        </p>
+      </ng-container>
+    </mat-list-item>
+    <ng-template #empty>
+      <mat-list-item>
+        <img matListAvatar src="{{member.member.avatar}}" alt="{{member.member.name}}">
+        <h4 matLine>No commits yet</h4>
+      </mat-list-item>
+    </ng-template>
   </ng-container>
-  <ng-template #empty>
-    <div>No commits yet</div>
-  </ng-template>
-</div>
+</mat-list>

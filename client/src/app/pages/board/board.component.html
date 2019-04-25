@@ -34,7 +34,9 @@
             <mat-icon>cancel</mat-icon>
           </button>
         </div>
-        <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
+        <mat-card class="w-full h-full">
+          <ng-template [cdkPortalOutlet]="panel.portal"></ng-template>
+        </mat-card>
       </div>
     </div>
   </main>
