@@ -7,6 +7,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="state.toggleEdit()">{{mode$ | async}}</button>
     <mat-divider></mat-divider>
+    <button mat-menu-item (click)="openDialog('board')">Board Settings</button>
     <button mat-menu-item (click)="openDialog('members')">Members</button>
     <button mat-menu-item (click)="openDialog('profile')">My profile</button>
     <mat-divider></mat-divider>

@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {BoardSettingsComponent} from './shared/components/board-settings/board-settings.component';
 import {MembersComponent} from './shared/components/members/members.component';
 import {ProfileComponent} from './shared/components/profile/profile.component';
 import {StateService} from './shared/services/state/state.service';
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit {
   openDialog(type: string) {
     const dialogMap = {
       profile: ProfileComponent,
-      members: MembersComponent
+      members: MembersComponent,
+      board: BoardSettingsComponent
     };
 
     this.dialog.open(dialogMap[type], {width: '800px'});

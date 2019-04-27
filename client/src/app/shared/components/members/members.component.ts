@@ -29,11 +29,11 @@ export class MembersComponent implements OnInit {
   ngOnInit() {
     this.form$ = this.afs
       .collection(FirestoreCollections.Settings)
-      .doc(FirestoreStaticDocuments.GeneralSettings)
+      .doc<Settings>(FirestoreStaticDocuments.GeneralSettings)
       .valueChanges()
       .pipe(
         take(1),
-        map((value: Settings) => {
+        map(value => {
           return this.fb.group({
             members: this.fb.array(
               (value.members || []).map(member => this.mapMember(member))

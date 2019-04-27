@@ -36,13 +36,15 @@ import {ConfirmationComponent} from './shared/components/confirmation/confirmati
 import {MembersComponent} from './shared/components/members/members.component';
 import {ProfileComponent} from './shared/components/profile/profile.component';
 import {ENV_CONFIG} from './shared/consts/env-config.const';
+import {BoardSettingsComponent} from './shared/components/board-settings/board-settings.component';
 
 const ENTRY_COMPONENTS = [
   MemberPushPanelComponent,
   MembersComponent,
   ProfileComponent,
   AddPanelsComponent,
-  ConfirmationComponent
+  ConfirmationComponent,
+  BoardSettingsComponent
 ];
 
 @NgModule({

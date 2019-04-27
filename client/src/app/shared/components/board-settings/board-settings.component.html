@@ -1,0 +1,17 @@
+<form *ngIf="form$ | async as form" [formGroup]="form">
+
+  <h1 mat-dialog-title>Board Settings</h1>
+
+  <mat-dialog-content class="ta-center">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Loop</mat-label>
+      <input type="number" matInput formControlName="loop">
+      <mat-hint>Interval in milliseconds for switching between boards</mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="jc-end">
+    <button mat-button type="button" [mat-dialog-close]>Cancel</button>&nbsp;
+    <button mat-flat-button type="submit" color="primary" [jpLoadClick]="save(form.getRawValue())">Save</button>
+  </mat-dialog-actions>
+</form>

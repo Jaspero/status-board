@@ -1,4 +1,4 @@
-<section [class.jgb-edit]="state.editMode$ | async">
+<section [class.jgb-edit]="state.editMode$ | async" *ngIf="boards$ | async as boards">
 
   <button
     class="jgb-widget-trigger"
@@ -11,7 +11,7 @@
   </button>
 
   <main class="jgb-board">
-    <div class="jgb-board-empty" *ngIf="!(boards$ | async)?.length">
+    <div class="jgb-board-empty" *ngIf="boards && !boards.length">
       <p>Welcome to Git Status Board.</p>
       <p>Start by adding a board:</p>
       <br>
@@ -45,7 +45,6 @@
   </main>
 
   <footer
-    *ngIf="boards$ | async as boards"
     class="jgb-board-selection"
     cdkDropList
     cdkDropListOrientation="horizontal"
