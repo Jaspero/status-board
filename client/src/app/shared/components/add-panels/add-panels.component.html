@@ -1,6 +1,6 @@
-<mat-nav-list>
-  <h3 mat-subheader>4x2</h3>
-  <mat-list-item *ngFor="let panel of panels" (click)="add(panel)">
+<mat-nav-list *ngFor="let segment of panels">
+  <h3 mat-subheader>{{segment.header}}</h3>
+  <mat-list-item *ngFor="let panel of segment.panels" (click)="add(panel)">
     <mat-icon mat-list-icon>widgets</mat-icon>
     <h4 matLine>{{panel.name}}</h4>
     <p matLine>{{panel.description}}</p>

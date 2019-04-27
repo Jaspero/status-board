@@ -2,7 +2,6 @@ import {auth, firestore} from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FirestoreCollections} from '../../../shared/enums/firestore-collections.enum';
 
-// TODO: Populate member with provider data (name, photo)...
 export const userCreated = functions.auth.user().onCreate(async user => {
   const documentRef = await firestore()
     .doc('settings/general')
