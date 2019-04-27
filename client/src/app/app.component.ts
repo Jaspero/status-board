@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {MatDialog} from '@angular/material';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ProfileComponent} from './shared/components/profile/profile.component';
 import {MembersComponent} from './shared/components/members/members.component';
+import {ProfileComponent} from './shared/components/profile/profile.component';
 import {StateService} from './shared/services/state/state.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(
     public state: StateService,
     public afAuth: AngularFireAuth,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   mode$: Observable<string>;
@@ -30,6 +32,7 @@ export class AppComponent implements OnInit {
 
   logOut() {
     this.afAuth.auth.signOut();
+    this.router.navigate(['/login']);
   }
 
   openDialog(type: string) {

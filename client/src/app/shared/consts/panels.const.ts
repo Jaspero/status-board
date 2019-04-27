@@ -6,8 +6,8 @@ export const PANELS = Object.freeze([
     description: 'A list showing push request from a member',
     type: PanelType.MemberPush,
     layout: {
-      colSpan: 2,
-      rowSpan: 2
+      colSpan: 4,
+      rowSpan: 4
     }
   }
 ]);

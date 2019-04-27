@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
-import {BehaviorSubject, from, Observable} from 'rxjs';
-import {finalize, map, take} from 'rxjs/operators';
+import {from, Observable} from 'rxjs';
+import {map, take, tap} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
 import {FirestoreStaticDocuments} from '../../enums/firestore-static-documents.enum';
 import {Role} from '../../enums/role.enum';
@@ -24,7 +24,6 @@ export class MembersComponent implements OnInit {
   ) {}
 
   form$: Observable<FormGroup>;
-  loading$ = new BehaviorSubject(false);
   role = Role;
 
   ngOnInit() {
@@ -66,22 +65,16 @@ export class MembersComponent implements OnInit {
   }
 
   save(data, document = FirestoreStaticDocuments.GeneralSettings) {
-    this.loading$.next(true);
-
-    from(
+    return from(
       this.afs
         .collection(FirestoreCollections.Settings)
         .doc(document)
         .set(data, {
           merge: true
         })
-    )
-      .pipe(
-        finalize(() => this.loading$.next(false)),
-        notify()
-      )
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+    ).pipe(
+      notify(),
+      tap(() => this.dialogRef.close())
+    );
   }
 }

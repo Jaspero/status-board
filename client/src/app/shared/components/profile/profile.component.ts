@@ -3,8 +3,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
-import {BehaviorSubject, from, Observable} from 'rxjs';
-import {finalize, map, switchMap, take} from 'rxjs/operators';
+import {from, Observable} from 'rxjs';
+import {map, switchMap, take, tap} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
 import {Member} from '../../interfaces/member.interface';
 import {notify} from '../../utils/notify.operator';
@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   form$: Observable<FormGroup>;
-  loading$ = new BehaviorSubject(false);
 
   ngOnInit() {
     this.form$ = this.afAuth.user.pipe(
@@ -52,22 +51,16 @@ export class ProfileComponent implements OnInit {
   }
 
   save({email, ...data}) {
-    this.loading$.next(true);
-
-    from(
+    return from(
       this.afs
         .collection(FirestoreCollections.Members)
         .doc(email)
         .set(data, {
           merge: true
         })
-    )
-      .pipe(
-        finalize(() => this.loading$.next(false)),
-        notify()
-      )
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+    ).pipe(
+      notify(),
+      tap(() => this.dialogRef.close())
+    );
   }
 }
