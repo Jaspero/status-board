@@ -3,9 +3,9 @@ import {ComponentPortal} from '@angular/cdk/portal';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {MatDialog} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
-import {combineLatest, forkJoin, from, Observable} from 'rxjs';
-import {map, switchMap, shareReplay, take} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {combineLatest, forkJoin, from, Observable, of} from 'rxjs';
+import {delay, map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
 import {AddPanelsComponent} from '../../shared/components/add-panels/add-panels.component';
 import {PanelType} from '../../shared/enums/panel-type.enum';
@@ -26,7 +26,8 @@ export class BoardComponent implements OnInit {
     public state: StateService,
     private activatedRoute: ActivatedRoute,
     private afs: AngularFirestore,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   panels$: Observable<
@@ -111,6 +112,33 @@ export class BoardComponent implements OnInit {
         return grid;
       })
     );
+
+    combineLatest(this.state.boardSettings$, this.boards$, this.board$)
+      .pipe(
+        switchMap(([settings, boards, board]) => {
+          let loop: Observable<any> = of(true);
+
+          if (settings.loop && boards.length > 1) {
+            loop = of(true).pipe(
+              delay(settings.loop),
+              tap(() => {
+                let nextBoard = boards.findIndex(bo => bo.id === board.id);
+
+                if (nextBoard < boards.length - 1) {
+                  nextBoard++;
+                } else {
+                  nextBoard = 0;
+                }
+
+                this.router.navigate(['/board', boards[nextBoard].id]);
+              })
+            );
+          }
+
+          return forkJoin(loop);
+        })
+      )
+      .subscribe();
   }
 
   addBoard() {

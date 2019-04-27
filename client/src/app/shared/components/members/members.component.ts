@@ -3,7 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {from, Observable} from 'rxjs';
-import {map, take, tap} from 'rxjs/operators';
+import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
 import {FirestoreStaticDocuments} from '../../enums/firestore-static-documents.enum';
 import {Role} from '../../enums/role.enum';
@@ -39,7 +39,8 @@ export class MembersComponent implements OnInit {
               (value.members || []).map(member => this.mapMember(member))
             )
           });
-        })
+        }),
+        shareReplay(1)
       );
   }
 
@@ -64,15 +65,19 @@ export class MembersComponent implements OnInit {
     members.removeAt(index);
   }
 
-  save(data, document = FirestoreStaticDocuments.GeneralSettings) {
-    return from(
-      this.afs
-        .collection(FirestoreCollections.Settings)
-        .doc(document)
-        .set(data, {
-          merge: true
-        })
-    ).pipe(
+  save() {
+    return this.form$.pipe(
+      take(1),
+      switchMap(form =>
+        from(
+          this.afs
+            .collection(FirestoreCollections.Settings)
+            .doc(FirestoreStaticDocuments.GeneralSettings)
+            .set(form.getRawValue(), {
+              merge: true
+            })
+        )
+      ),
       notify(),
       tap(() => this.dialogRef.close())
     );

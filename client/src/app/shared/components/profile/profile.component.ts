@@ -4,7 +4,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {from, Observable} from 'rxjs';
-import {map, switchMap, take, tap} from 'rxjs/operators';
+import {map, shareReplay, switchMap, take, tap} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../../shared/enums/firestore-collections.enum';
 import {Member} from '../../interfaces/member.interface';
 import {notify} from '../../utils/notify.operator';
@@ -31,11 +31,11 @@ export class ProfileComponent implements OnInit {
       switchMap(({email}) =>
         this.afs
           .collection(FirestoreCollections.Members)
-          .doc(email)
+          .doc<Member>(email)
           .valueChanges()
           .pipe(
             take(1),
-            map((value: Member) => {
+            map(value => {
               value = value || {email};
 
               return this.fb.group({
@@ -46,19 +46,25 @@ export class ProfileComponent implements OnInit {
               });
             })
           )
-      )
+      ),
+      shareReplay(1)
     );
   }
 
-  save({email, ...data}) {
-    return from(
-      this.afs
-        .collection(FirestoreCollections.Members)
-        .doc(email)
-        .set(data, {
-          merge: true
-        })
-    ).pipe(
+  save() {
+    return this.form$.pipe(
+      switchMap(form => {
+        const {email, ...data} = form.getRawValue();
+
+        return from(
+          this.afs
+            .collection(FirestoreCollections.Members)
+            .doc(email)
+            .set(data, {
+              merge: true
+            })
+        );
+      }),
       notify(),
       tap(() => this.dialogRef.close())
     );
