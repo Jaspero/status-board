@@ -11,7 +11,7 @@
   </button>
 
   <main class="jgb-board">
-    <div class="jgb-board-empty" *ngIf="!(boards$ | async).length">
+    <div class="jgb-board-empty" *ngIf="!(boards$ | async)?.length">
       <p>Welcome to Git Status Board.</p>
       <p>Start by adding a board:</p>
       <br>
@@ -23,14 +23,17 @@
     <div class="jgb-board-grid" *ngIf="panels$ | async as panels;">
       <div
         class="jgb-board-grid-item"
-        *ngFor="let panel of panels"
+        cdkDragBoundary=".jgb-board-grid"
+        [cdkDragDisabled]="(state.editMode$ | async) === false"
+        cdkDrag
+        *ngFor="let panel of panels; index as index;"
         [style.grid-row-start]="panel.panel.layout.rowStart"
         [style.grid-row-end]="'span ' + panel.panel.layout.rowSpan"
         [style.grid-column-start]="panel.panel.layout.colStart"
         [style.grid-column-end]="'span ' + panel.panel.layout.colSpan">
         <div class="jgb-board-grid-item-controls">
           <mat-icon class="jgb-board-grid-item-controls-drag" aria-hidden="true">open_with</mat-icon>
-          <button class="jgb-board-grid-item-controls-remove" mat-icon-button>
+          <button class="jgb-board-grid-item-controls-remove" mat-icon-button (click)="removePanel(index)">
             <mat-icon>cancel</mat-icon>
           </button>
         </div>

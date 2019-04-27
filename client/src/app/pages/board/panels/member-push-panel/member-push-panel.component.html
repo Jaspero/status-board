@@ -5,8 +5,8 @@
 <mat-list>
   <ng-container *ngFor="let member of members$ | async">
     <mat-list-item *ngIf="member.event; else empty;">
-      <img matListAvatar src="{{member.member.avatar}}" alt="{{member.member.name}}">
-      <h4 matLine>{{member.member.name}} → {{member.event.repository.full_name}} ({{member.event.commit.timestamp | date:'HH:mm'}})</h4>
+      <img matListAvatar [src]="member.member.avatar" [attr.alt]="member.member.name">
+      <h4 matLine>{{member.member.name}} → {{member.event.repository.full_name}} <b>({{member.event.commit.timestamp | date:'HH:mm'}})</b></h4>
       <p matLine>{{member.event.commit.message}}</p>
       <ng-container *ngIf="member.event.jobs">
         <p matLine *ngFor="let job of member.event.jobs" [ngClass]="job.status">
@@ -16,7 +16,7 @@
     </mat-list-item>
     <ng-template #empty>
       <mat-list-item>
-        <img matListAvatar src="{{member.member.avatar}}" alt="{{member.member.name}}">
+        <img matListAvatar [src]="member.member.avatar" [attr.alt]="member.member.name">
         <h4 matLine>No commits yet</h4>
       </mat-list-item>
     </ng-template>

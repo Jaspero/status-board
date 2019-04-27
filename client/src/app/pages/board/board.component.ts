@@ -4,7 +4,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {MatDialog} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
-import {combineLatest, forkJoin, from, Observable, of} from 'rxjs';
+import {combineLatest, forkJoin, from, Observable} from 'rxjs';
 import {map, switchMap, shareReplay, take} from 'rxjs/operators';
 import {FirestoreCollections} from '../../../../../shared/enums/firestore-collections.enum';
 import {AddPanelsComponent} from '../../shared/components/add-panels/add-panels.component';
@@ -198,5 +198,27 @@ export class BoardComponent implements OnInit {
         )
       )
       .subscribe();
+  }
+
+  removePanel(index: number) {
+    confirmation([
+      switchMap(() => this.board$),
+      take(1),
+      switchMap((board: Board) => {
+        const panels = [...board.panels];
+
+        panels.splice(index, 1);
+
+        return this.afs
+          .collection(FirestoreCollections.Boards)
+          .doc(board.id)
+          .set(
+            {
+              panels
+            },
+            {merge: true}
+          );
+      })
+    ]);
   }
 }

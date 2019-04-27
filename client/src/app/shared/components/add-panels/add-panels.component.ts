@@ -121,7 +121,7 @@ export class AddPanelsComponent {
         .collection(FirestoreCollections.Boards)
         .doc(id)
         .set(toSet, {merge: true})
-    ).subscribe(() => {
+    ).subscribe(res => {
       this.dialogRef.close();
     });
   }
